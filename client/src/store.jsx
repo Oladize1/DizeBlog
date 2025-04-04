@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import axios from 'axios'
+const BASE_URL = 'https://dizeblog.onrender.com/api/blog'
 export const useAuthStore = create((set) => ({
     user: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
     error:null,
@@ -9,7 +10,7 @@ export const useAuthStore = create((set) => ({
         let payload = {name, username, password, role}
         set({isLoading: true, error: null});
         try {
-            await axios.post('http://localhost:3000/api/blog/register', payload)
+            await axios.post(`${BASE_URL}/register`, payload)
             set({error: null, isLoading: false })
         } catch (error) {
             set({error: error.response?.data, isLoading: false})
@@ -20,7 +21,7 @@ export const useAuthStore = create((set) => ({
     login: async (username, password) => {
       set({isLoading: true, error: null}) 
       try {
-        const res = await axios.post('http://localhost:3000/api/blog/login', {username, password})
+        const res = await axios.post(`${BASE_URL}/login`, {username, password})
         localStorage.setItem("userInfo", JSON.stringify(res.data))
         set({user: res.data, error:null, isLoading: false})       
       } catch (error) {
@@ -60,7 +61,7 @@ export const usePostStore = create((set, get) => ({
     getAllPosts: async() => {
         set({isLoading: true, error: null})        
         try {
-            const post = await axios.get('http://localhost:3000/api/blog/post')
+            const post = await axios.get(`${BASE_URL}/post`)
             set({posts: post.data, error:null, isLoading:false})   
         } catch (error) {
             set({isLoading:false, error: error.response?.data})
@@ -71,7 +72,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token; 
-            const singlePost = await axios.get(`http://localhost:3000/api/blog/post/${id}`, {
+            const singlePost = await axios.get(`${BASE_URL}/post/${id}`, {
               headers : {
                 Authorization: `Bearer ${token}`
               }
@@ -87,7 +88,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error:null})
         try {
             const token = useAuthStore.getState().user?.token; 
-            const newPost = await axios.post('http://localhost:3000/api/blog/post', {title, description, content}, {
+            const newPost = await axios.post(`${BASE_URL}/post`, {title, description, content}, {
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
@@ -107,7 +108,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token; 
-            await axios.patch(`http://localhost:3000/api/blog/post/${id}`, {title, description, content} ,{
+            await axios.patch(`${BASE_URL}/post/${id}`, {title, description, content} ,{
               headers : {
                 Authorization: `Bearer ${token}`
               }
@@ -122,7 +123,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token
-            const posts = await axios.get('http://localhost:3000/api/blog/post/author', {
+            const posts = await axios.get(`${BASE_URL}/post/author`, {
                 headers : {
                     Authorization : `Bearer ${token}`
                 }
@@ -142,7 +143,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token; 
-            await axios.delete(`http://localhost:3000/api/blog/post/${id}`, {
+            await axios.delete(`${BASE_URL}/post/${id}`, {
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
@@ -162,7 +163,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token
-            const likedPost = await axios.post(`http://localhost:3000/api/blog/post/like/${id}`, null ,{
+            const likedPost = await axios.post(`${BASE_URL}/post/like/${id}`, null ,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -202,7 +203,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token;            
-            const bookmark = await axios.post(`http://localhost:3000/api/blog/post/bookmark/${id}`, null, {
+            const bookmark = await axios.post(`${BASE_URL}/post/bookmark/${id}`, null, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }
@@ -223,7 +224,7 @@ export const usePostStore = create((set, get) => ({
         set({isLoading: true, error: null})
         try {
             const token = useAuthStore.getState().user?.token
-            const addNewComment = await axios.post(`http://localhost:3000/api/blog/post/comment/${id}`, {comment}, {
+            const addNewComment = await axios.post(`${BASE_URL}/post/comment/${id}`, {comment}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
