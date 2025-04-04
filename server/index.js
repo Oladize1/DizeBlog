@@ -15,9 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/blog', authRouter);
 app.use('/api/blog/post', postRouter);
 
-app.get('/test', (req, res) => {
-    res.send('Hello World!');
-})
 
 // Global error handler middleware in Express
 app.use((err, req, res, next) => {
