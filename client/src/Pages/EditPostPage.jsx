@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
 import { usePostStore } from '../store';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -73,33 +72,12 @@ const EditPostPage = () => {
           />
         </div>
         <div className="w-full">
-          <Editor
-            apiKey="u7l5afp21ko7qz3c4j0gsoimxzwu3hnehxzxzzpc7p503lzm"
+          <textarea
+            placeholder="Edit your post content here..."
             value={editContent}
-            onEditorChange={(newContent, editor) => setEditContent(newContent)}
-            init={{
-              width: '100%',
-              // plugins: [
-              //   'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image',
-              //   'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks',
-              //   'wordcount', 'checklist', 'mediaembed', 'casechange', 'export',
-              //   'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker',
-              //   'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage',
-              //   'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents',
-              //   'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss',
-              //   'markdown','importword', 'exportword', 'exportpdf'
-              // ],
-              toolbar:
-                'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-              tinycomments_mode: 'embedded',
-              tinycomments_author: 'Author name',
-              mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
-              ],
-              ai_request: (request, respondWith) =>
-                respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-            }}
+            onChange={(e) => setEditContent(e.target.value)}
+            className="textarea textarea-bordered w-full"
+            rows="10"
           />
         </div>
         <button type="submit" className="btn btn-primary mt-4 w-full">

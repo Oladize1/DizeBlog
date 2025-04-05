@@ -156,7 +156,7 @@ const navigate = useNavigate()
               {displayedComments.map((comment) => (
                 <li key={comment._id} className="p-4 bg-white rounded-lg shadow">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-semibold">{comment.username}</span>
+                    <span className="font-semibold">{comment.username || 'Anonymous'}</span>
                     <span className="text-xs text-gray-500">{format(comment.createdAt)}</span>
                   </div>
                   <p className="text-gray-700">{comment.comment}</p>
