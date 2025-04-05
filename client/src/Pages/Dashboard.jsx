@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const DashboardPage = () => {
   const { user, logout } = useAuthStore();
-  const { error, isLoading, authorPosts, getAuthorPosts, getAllPosts, getSinglePost, deletePost, bookmarks, posts } = usePostStore();
+  const { error, isLoading, authorPosts, getAuthorPosts, getAllPosts, getSinglePost, deletePost, bookmarks, posts, removeBookmark } = usePostStore();
   const navigate = useNavigate();
 
   if (!user) {
@@ -92,6 +92,20 @@ const DashboardPage = () => {
     }
   };
 
+  const handleRemoveBookmark = async (id) => {
+    try {
+      if (!user) {
+        navigate('/login');
+        return;
+      }
+      if (!window.confirm('Remove Post from bookmark?')) return;
+      await removeBookmark(id);
+      await getAuthorPosts()
+    } catch (error) {
+      toast.error(error?.message);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto">
@@ -114,8 +128,12 @@ const DashboardPage = () => {
           {myBookmarks.length > 0 ? (
             <ul className="space-y-2">
               {myBookmarks.map((bookmark) => (
-                <li key={bookmark._id} className="text-gray-700 hover:text-blue-600 cursor-pointer">
-                  <p onClick={() => handleSinglePost(bookmark._id)}>{bookmark.title} <span></span></p>
+                <li key={bookmark._id} className="text-gray-700 hover:text-blue-600 cursor-pointer flex justify-between">
+                  <p onClick={() => handleSinglePost(bookmark._id)}>{bookmark.title}</p><button
+                        className="flex items-center cursor-pointer bg-red-600 text-white px-3 py-1 rounded hover:bg-red-800"
+                        onClick={() => handleRemoveBookmark(bookmark._id)}
+                      > Remove
+                      </button>
                 </li>
               ))}
             </ul>

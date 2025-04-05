@@ -220,6 +220,25 @@ export const usePostStore = create((set, get) => ({
             throw error
         }
     },
+    removeBookmark: async(id) => {
+        set({isLoading: true, error: null})
+        try {
+            const token = useAuthStore.getState().user?.token
+            await axios.delete(`${BASE_URL}/post/bookmark/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            set(state => ({
+                bookmarks: state.bookmarks.filter(bookmark => bookmark !== id),
+                isLoading: false,
+                 error: null
+            }))
+        } catch (error) {
+            set({isLoading: false, error: error.response?.data})
+            throw error
+        }
+    },
     addComment: async(id, comment) => {
         set({isLoading: true, error: null})
         try {
