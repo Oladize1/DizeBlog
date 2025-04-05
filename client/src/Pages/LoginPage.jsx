@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../Component/Spinner'
 import { useAuthStore, usePostStore } from '../store'
-import { toast } from 'react-toastify'
+
 
 const loginPage = () => {
   const [username, setUsername] = useState('')  
@@ -36,8 +36,8 @@ const loginPage = () => {
   e.preventDefault()
   try {
     if(password !== confirmPassword){
-            toast.error("password doesn't match ")
-            return 
+        toast.error("password doesn't match ")
+        return 
       }
     await login(username, password)
     toast.success('log in successful')
