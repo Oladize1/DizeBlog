@@ -37,11 +37,11 @@ const RegisterPage = () => {
   const handleRegister = async(e) => {
     e.preventDefault()
     let role = ''
+    if(password !== confirmPassword){
+      toast.error("password doesn't match ")
+      return 
+    }
     try {
-      if(password !== confirmPassword){
-        toast.error("password doesn't match ")
-        return 
-      }
       if (author === true) {
         role = 'author'
         await register(name, username, password, role)
