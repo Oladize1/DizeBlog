@@ -34,11 +34,11 @@ const loginPage = () => {
 
  const handleLogin = async e => {
   e.preventDefault()
+  if(password !== confirmPassword){
+      toast.error("password doesn't match ")
+      return 
+    }
   try {
-    if(password !== confirmPassword){
-        toast.error("password doesn't match ")
-        return 
-      }
     await login(username, password)
     toast.success('log in successful')
     navigate('/')
