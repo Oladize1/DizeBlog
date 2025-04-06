@@ -4,7 +4,9 @@ import bcrypt from 'bcryptjs'
 
 export const login = async (req, res) => {
     try {
-        const {username, password} = req.body
+        let {username, password} = req.body
+        username = username.trim()
+        
         console.log(username, password);
         
         if (!username || !password) { 
@@ -34,7 +36,9 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
     try {
-        const {name, username, password, role } = req.body
+        let {name, username, password, role } = req.body
+        name = name.trim()
+        username = username.trim()
         if (!name || !username || !password) {
             return res.status(400).json({message: 'All input is required'})
         }
