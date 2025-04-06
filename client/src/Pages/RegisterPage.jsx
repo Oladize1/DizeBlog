@@ -86,7 +86,7 @@ const RegisterPage = () => {
           required 
           placeholder="Name" 
           pattern="[A-Za-z][A-Za-z0-9\-]*" 
-          minLength="6" 
+          minLength="3"
           maxLength="30" 
           title="Only letters or numbers"
           value={name}
@@ -94,7 +94,7 @@ const RegisterPage = () => {
           />
       </label>
     <p className="validator-hint">
-     Must be 6 to 30 characters
+     Must be 3 to 30 characters
       <br/>containing only letters or numbers
       </p>
       </div>
@@ -111,8 +111,8 @@ const RegisterPage = () => {
           <input 
           type="input" 
           required placeholder="Username" 
-          pattern="[A-Za-z][A-Za-z0-9\-]*" 
-          minLength="6" 
+          pattern="[A-Za-z][A-Za-z0-9\-]*"
+          minLength="3" 
           maxLength="30" 
           title="Only letters or numbers"
           value={username}
@@ -120,7 +120,7 @@ const RegisterPage = () => {
           />
       </label>
     <p className="validator-hint">
-     Must be 6 to 30 characters
+     Must be 3 to 30 characters
       <br/>containing only letters or numbers
       </p>
       </div>
