@@ -42,7 +42,7 @@ export const register = async (req, res) => {
         if (!name || !username || !password) {
             return res.status(400).json({message: 'All input is required'})
         }
-        if(username.length < 6 || password.length < 6) {
+        if(username.length < 3 || password.length < 6) {
             return res.status(400).json({message: 'Username must be at least 6 characters'})
         }
         const existingUser = await User.findOne({username});
